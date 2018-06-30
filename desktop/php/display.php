@@ -4,7 +4,7 @@ if (!isConnect('admin')) {
 }
 $nbEqlogic = 0;
 $nbCmd = 0;
-$objects = object::all();
+$objects = obj::all();
 $eqLogics = array();
 $cmds = array();
 $eqLogics[-1] = eqLogic::byObjectId(null, false);

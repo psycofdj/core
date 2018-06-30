@@ -319,11 +319,11 @@ try {
 
 		/*             * ************************Object*************************** */
 		if ($jsonrpc->getMethod() == 'object::all') {
-			$jsonrpc->makeSuccess(utils::o2a(object::all()));
+			$jsonrpc->makeSuccess(utils::o2a(obj::all()));
 		}
 
 		if ($jsonrpc->getMethod() == 'object::byId') {
-			$object = object::byId($params['id']);
+			$object = obj::byId($params['id']);
 			if (!is_object($object)) {
 				throw new Exception('Objet introuvable : ' . secureXSS($params['id']), -32601);
 			}
@@ -331,11 +331,11 @@ try {
 		}
 
 		if ($jsonrpc->getMethod() == 'object::full') {
-			$jsonrpc->makeSuccess(object::fullData());
+			$jsonrpc->makeSuccess(obj::fullData());
 		}
 
 		if ($jsonrpc->getMethod() == 'object::fullById') {
-			$object = object::byId($params['id']);
+			$object = obj::byId($params['id']);
 			if (!is_object($object)) {
 				throw new Exception('Objet introuvable : ' . secureXSS($params['id']), -32601);
 			}

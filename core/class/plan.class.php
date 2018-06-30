@@ -169,7 +169,7 @@ class plan {
 			$cmd = cmd::byId($this->getLink_id());
 			return $cmd;
 		} else if ($this->getLink_type() == 'summary') {
-			$object = object::byId($this->getLink_id());
+			$object = obj::byId($this->getLink_id());
 			return $object;
 		}
 		return null;
@@ -312,7 +312,7 @@ class plan {
  			$html = '<div class="summary-widget" data-summary_id="' . $this->getLink_id() . '" style="' . $background_color . $color . ';min-width:10px;min-height:10px;">';
 			$summary = '';
 			if ($this->getLink_id() == 0) {
-				$summary = object::getGlobalHtmlSummary($_version);
+				$summary = obj::getGlobalHtmlSummary($_version);
 			} else {
 				$object = $this->getLink();
 				if (is_object($object)) {

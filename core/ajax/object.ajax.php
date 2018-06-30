@@ -30,7 +30,7 @@ try {
 		if (!isConnect('admin')) {
 			throw new Exception(__('401 - Accès non autorisé', __FILE__));
 		}
-		$object = object::byId(init('id'));
+		$object = obj::byId(init('id'));
 		if (!is_object($object)) {
 			throw new Exception(__('Objet inconnu. Vérifiez l\'ID', __FILE__));
 		}
@@ -39,7 +39,7 @@ try {
 	}
 
 	if (init('action') == 'byId') {
-		$object = object::byId(init('id'));
+		$object = obj::byId(init('id'));
 		if (!is_object($object)) {
 			throw new Exception(__('Objet inconnu. Vérifiez l\'ID ', __FILE__) . init('id'));
 		}
@@ -47,7 +47,7 @@ try {
 	}
 
 	if (init('action') == 'createSummaryVirtual') {
-		object::createSummaryToVirtual(init('key'));
+		obj::createSummaryToVirtual(init('key'));
 		ajax::success();
 	}
 
@@ -72,7 +72,7 @@ try {
 		}
 		$object_json = json_decode(init('object'), true);
 		if (isset($object_json['id'])) {
-			$object = object::byId($object_json['id']);
+			$object = obj::byId($object_json['id']);
 		}
 		if (!isset($object) || !is_object($object)) {
 			$object = new object();
@@ -83,7 +83,7 @@ try {
 	}
 
 	if (init('action') == 'uploadImage') {
-		$object = object::byId(init('id'));
+		$object = obj::byId(init('id'));
 		if (!is_object($object)) {
 			throw new Exception(__('Objet inconnu. Vérifiez l\'ID', __FILE__));
 		}
@@ -105,7 +105,7 @@ try {
 	}
 
 	if (init('action') == 'getChild') {
-		$object = object::byId(init('id'));
+		$object = obj::byId(init('id'));
 		if (!is_object($object)) {
 			throw new Exception(__('Objet inconnu. Vérifiez l\'ID', __FILE__));
 		}
@@ -119,7 +119,7 @@ try {
 				$objects = json_decode(init('id'), true);
 			} else {
 				$objects = array();
-				foreach (object::all() as $object) {
+				foreach (obj::all() as $object) {
 					if ($object->getConfiguration('hideOnDashboard', 0) == 1) {
 						continue;
 					}
@@ -133,7 +133,7 @@ try {
 				if (init('summary') == '') {
 					$eqLogics = eqLogic::byObjectId($id, true, true);
 				} else {
-					$object = object::byId($id);
+					$object = obj::byId($id);
 					$eqLogics = $object->getEqLogicBySummary(init('summary'), true, false);
 				}
 				foreach ($eqLogics as $eqLogic) {
@@ -150,7 +150,7 @@ try {
 			if (init('summary') == '') {
 				$eqLogics = eqLogic::byObjectId(init('id'), true, true);
 			} else {
-				$object = object::byId(init('id'));
+				$object = obj::byId(init('id'));
 				$eqLogics = $object->getEqLogicBySummary(init('summary'), true, false);
 			}
 			foreach ($eqLogics as $eqLogic) {
@@ -168,7 +168,7 @@ try {
 		}
 		$position = 1;
 		foreach (json_decode(init('objects'), true) as $id) {
-			$object = object::byId($id);
+			$object = obj::byId($id);
 			if (is_object($object)) {
 				$object->setPosition($position);
 				$object->save();
@@ -184,12 +184,12 @@ try {
 			foreach (json_decode(init('ids'), true) as $id => $value) {
 				if ($id == 'global') {
 					$return['global'] = array(
-						'html' => object::getGlobalHtmlSummary($value['version']),
+						'html' => obj::getGlobalHtmlSummary($value['version']),
 						'id' => 'global',
 					);
 					continue;
 				}
-				$object = object::byId($id);
+				$object = obj::byId($id);
 				if (!is_object($object)) {
 					continue;
 				}
@@ -201,7 +201,7 @@ try {
 
 			ajax::success($return);
 		} else {
-			$object = object::byId(init('id'));
+			$object = obj::byId(init('id'));
 			if (!is_object($object)) {
 				throw new Exception(__('Objet inconnu. Vérifiez l\'ID', __FILE__));
 			}

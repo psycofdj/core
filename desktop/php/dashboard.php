@@ -4,17 +4,17 @@ if (!isConnect()) {
 }
 
 if (init('object_id') == '') {
-	$object = object::byId($_SESSION['user']->getOptions('defaultDashboardObject'));
+	$object = obj::byId($_SESSION['user']->getOptions('defaultDashboardObject'));
 } else {
-	$object = object::byId(init('object_id'));
+	$object = obj::byId(init('object_id'));
 }
 if (!is_object($object)) {
-	$object = object::rootObject();
+	$object = obj::rootObject();
 }
 if (!is_object($object)) {
 	throw new Exception('{{Aucun objet racine trouvé. Pour en créer un, allez dans Outils -> Objets.<br/> Si vous ne savez pas quoi faire ou que c\'est la première fois que vous utilisez Jeedom, n\'hésitez pas à consulter cette <a href="https://jeedom.github.io/documentation/premiers-pas/fr_FR/index" target="_blank">page</a> et celle-là si vous avez un pack : <a href="https://jeedom.com/start" target="_blank">page</a>}}');
 }
-$child_object = object::buildTree($object);
+$child_object = obj::buildTree($object);
 ?>
 
 <div class="row row-overflow">
@@ -29,7 +29,7 @@ if ($_SESSION['user']->getOptions('displayObjetByDefault') == 1) {
 		<ul id="ul_object" class="nav nav-list bs-sidenav">
 			<li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/></li>
 			<?php
-$allObject = object::buildTree(null, true);
+$allObject = obj::buildTree(null, true);
 foreach ($allObject as $object_li) {
 	$margin = 5 * $object_li->getConfiguration('parentNumber');
 	if ($object_li->getId() == $object->getId()) {

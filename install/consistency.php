@@ -332,7 +332,7 @@ try {
 	}
 
 	try {
-		foreach (object::all() as $object) {
+		foreach (obj::all() as $object) {
 			$object->save();
 		}
 	} catch (Exception $exc) {

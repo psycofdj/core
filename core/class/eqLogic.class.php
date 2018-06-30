@@ -1417,7 +1417,7 @@ class eqLogic {
 
 	public function getObject() {
 		if ($this->_object === null) {
-			$this->setObject(object::byId($this->object_id));
+			$this->setObject(obj::byId($this->object_id));
 		}
 		return $this->_object;
 	}

@@ -98,7 +98,7 @@ class object {
 
 	public static function fullData($_restrict = array()) {
 		$return = array();
-		foreach (object::all(true) as $object) {
+		foreach (obj::all(true) as $object) {
 			if (!isset($_restrict['object']) || !is_array($_restrict['object']) || isset($_restrict['object'][$object->getId()])) {
 				$object_return = utils::o2a($object);
 				$object_return['eqLogics'] = array();
@@ -136,7 +136,7 @@ class object {
 
 	public static function deadCmd() {
 		$return = array();
-		foreach (object::all() as $object) {
+		foreach (obj::all() as $object) {
 			foreach ($object->getConfiguration('summary', '') as $key => $summary) {
 				foreach ($summary as $cmdInfo) {
 					if (!cmd::byId(str_replace('#', '', $cmdInfo['cmd']))) {
@@ -204,7 +204,7 @@ class object {
 			$event = array('object_id' => 'global', 'keys' => array());
 			foreach ($global as $key => $value) {
 				try {
-					$result = object::getGlobalSummary($key);
+					$result = obj::getGlobalSummary($key);
 					if ($result === null) {
 						continue;
 					}
@@ -225,7 +225,7 @@ class object {
 			$events[] = $event;
 		}
 		if (count($events) > 0) {
-			event::adds('object::summary::update', $events);
+			event::adds('obj::summary::update', $events);
 		}
 	}
 
@@ -374,7 +374,7 @@ class object {
 		$cmd->setUnite($def[$_key]['unit']);
 		$cmd->save();
 
-		foreach (object::all() as $object) {
+		foreach (obj::all() as $object) {
 			$summaries = $object->getConfiguration('summary');
 			if (!is_array($summaries)) {
 				continue;
@@ -634,7 +634,7 @@ class object {
 
 	public function getLinkData(&$_data = array('node' => array(), 'link' => array()), $_level = 0, $_drill = null) {
 		if ($_drill === null) {
-			$_drill = config::byKey('graphlink::object::drill');
+			$_drill = config::byKey('graphlink::obj::drill');
 		}
 		if (isset($_data['node']['object' . $this->getId()])) {
 			return;

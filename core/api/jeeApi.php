@@ -184,7 +184,7 @@ if (init('type') != '') {
 		if ($type == 'object') {
 			log::add('api', 'debug', __('Demande API pour les objets', __FILE__));
 			header('Content-Type: application/json');
-			echo json_encode(utils::o2a(object::all()), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE,1024);
+			echo json_encode(utils::o2a(obj::all()), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE,1024);
 			die();
 		}
 		if ($type == 'eqLogic') {
@@ -202,7 +202,7 @@ if (init('type') != '') {
 		if ($type == 'fullData') {
 			log::add('api', 'debug', __('Demande API pour les commandes', __FILE__));
 			header('Content-Type: application/json');
-			echo json_encode(object::fullData(), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE,1024);
+			echo json_encode(obj::fullData(), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE,1024);
 			die();
 		}
 		if ($type == 'variable') {
@@ -416,24 +416,24 @@ try {
 		}
 
 		/*             * ************************Object*************************** */
-		if ($jsonrpc->getMethod() == 'object::all') {
-			$jsonrpc->makeSuccess(utils::o2a(object::all()));
+		if ($jsonrpc->getMethod() == 'obj::all') {
+			$jsonrpc->makeSuccess(utils::o2a(obj::all()));
 		}
 
-		if ($jsonrpc->getMethod() == 'object::byId') {
-			$object = object::byId($params['id']);
+		if ($jsonrpc->getMethod() == 'obj::byId') {
+			$object = obj::byId($params['id']);
 			if (!is_object($object)) {
 				throw new Exception(__('Objet introuvable : ', __FILE__) . secureXSS($params['id']), -32601);
 			}
 			$jsonrpc->makeSuccess(utils::o2a($object));
 		}
 
-		if ($jsonrpc->getMethod() == 'object::full') {
-			$jsonrpc->makeSuccess(object::fullData());
+		if ($jsonrpc->getMethod() == 'obj::full') {
+			$jsonrpc->makeSuccess(obj::fullData());
 		}
 
-		if ($jsonrpc->getMethod() == 'object::fullById') {
-			$object = object::byId($params['id']);
+		if ($jsonrpc->getMethod() == 'obj::fullById') {
+			$object = obj::byId($params['id']);
 			if (!is_object($object)) {
 				throw new Exception(__('Objet introuvable : ', __FILE__) . secureXSS($params['id']), -32601);
 			}
@@ -450,9 +450,9 @@ try {
 			$jsonrpc->makeSuccess($return);
 		}
 
-		if ($jsonrpc->getMethod() == 'object::save') {
+		if ($jsonrpc->getMethod() == 'obj::save') {
 			if (isset($params['id'])) {
-				$object = object::byId($params['id']);
+				$object = obj::byId($params['id']);
 			}
 			if (!is_object($object)) {
 				$object = new object();
@@ -466,18 +466,18 @@ try {
 
 		if ($jsonrpc->getMethod() == 'summary::global') {
 			if (isset($params['key'])) {
-				$jsonrpc->makeSuccess(object::getGlobalSummary($params['key']));
+				$jsonrpc->makeSuccess(obj::getGlobalSummary($params['key']));
 			}
 			$return = array();
 			$def = config::byKey('object:summary');
 			foreach ($def as $key => $value) {
-				$return[$key] = object::getGlobalSummary($key);
+				$return[$key] = obj::getGlobalSummary($key);
 			}
 			$jsonrpc->makeSuccess($return);
 		}
 
 		if ($jsonrpc->getMethod() == 'summary::byId') {
-			$object = object::byId($params['id']);
+			$object = obj::byId($params['id']);
 			if (!is_object($object)) {
 				throw new Exception(__('Objet introuvable : ', __FILE__) . secureXSS($params['id']), -32601);
 			}

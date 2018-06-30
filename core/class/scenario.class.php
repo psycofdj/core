@@ -1309,7 +1309,7 @@ class scenario {
 	 * @return object
 	 */
 	public function getObject() {
-		return object::byId($this->object_id);
+		return obj::byId($this->object_id);
 	}
 	/**
 	 *
